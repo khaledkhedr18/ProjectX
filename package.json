@@ -1,0 +1,24 @@
+{
+  "name": "projectx",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "concurrently \"npm run dev --prefix backend\" \"npm start --prefix frontend\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/khaledkhedr18/ProjectX.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/khaledkhedr18/ProjectX/issues"
+  },
+  "homepage": "https://github.com/khaledkhedr18/ProjectX#readme",
+  "devDependencies": {
+    "concurrently": "^9.2.0"
+  }
+}
