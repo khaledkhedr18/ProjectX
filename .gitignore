@@ -148,3 +148,4 @@ frontend/dist-ssr
 !.vscode/extensions.json
 .idea
 .DS_Store
+token.txt
