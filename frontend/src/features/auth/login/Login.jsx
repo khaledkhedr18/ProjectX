@@ -1,46 +1,82 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import './login.css';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { loginWithEmail } from "./login.api";
+import "./login.css";
+
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+
+    try {
+      const res = await loginWithEmail(email, password);
+      console.log("Logged in:", res.data);
+      // TODO: store token or redirect user
+    } catch (err) {
+      setError(err?.response?.data?.message || "Login failed");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen min-w-screen flex justify-center items-center bg-gray-900">
-      <form className="bg-white p-10 w-full max-w-md rounded-xl shadow-lg">
-        <h2 className="text-2xl font-semibold text-center text-gray-800 mb-6">Welcome Back</h2>
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white p-10 w-full max-w-md rounded-xl shadow-lg text-gray-800"
+      >
+        <h2 className="text-2xl font-semibold text-center text-gray-800 mb-6">
+          Welcome Back
+        </h2>
+
+        {error && (
+          <div className="mb-4 text-red-600 text-sm text-center">{error}</div>
+        )}
 
         <div className="mb-5">
-          <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-          <input 
-            type="email" 
-            placeholder="Enter your email" 
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Email
+          </label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition"
-            required 
+            required
           />
         </div>
 
         <div className="mb-3">
-          <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
-          <input 
-            type="password" 
-            placeholder="Enter your password" 
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Password
+          </label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition"
-            required 
+            required
           />
         </div>
 
         <div className="flex justify-start mb-6">
-          <Link 
-            to="/forgot-password" 
-            className="text-sm text-green-600 hover:underline"
-          >
+          <Link to="/forgot-password" className="text-sm text-green-600 hover:underline">
             Forgot password?
           </Link>
         </div>
 
-        <button 
-          type="submit" 
+        <button
+          type="submit"
+          disabled={loading}
           className="w-full py-3 bg-green-600 hover:bg-green-700 text-white font-medium rounded-lg transition duration-200 mb-6"
         >
-          Login
+          {loading ? "Logging in..." : "Login"}
         </button>
 
         <div className="flex items-center my-6">
@@ -49,9 +85,9 @@ const Login = () => {
           <div className="flex-grow border-t border-gray-300"></div>
         </div>
 
-        <button 
-          type="button" 
-          className="w-full py-2.5 border border-gray-300 rounded-lg flex items-center justify-center hover:bg-gray-50 transition mb-6"
+        <button
+          type="button"
+          className="w-full py-2.5 border border-gray-300 rounded-lg flex items-center justify-center hover:bg-gray-50 transition mb-6 text-white  "
         >
           <svg className="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
@@ -63,7 +99,7 @@ const Login = () => {
         </button>
 
         <p className="text-center text-sm text-gray-600">
-          Don't have an account?{' '}
+          Don&apos;t have an account?{" "}
           <Link to="/register" className="text-green-600 font-medium hover:underline">
             Register
           </Link>
