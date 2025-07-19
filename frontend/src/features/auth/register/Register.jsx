@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { registerWithEmail } from './register.api';
-import { isValidEmail, isStrongPassword } from './register.utils';
 
 
 const Register = () => {
@@ -24,30 +23,9 @@ const Register = () => {
     }));
   };
 
-  const validateForm = () => {
-    if (!form.firstName || !form.lastName) {
-      setError('Please enter your full name');
-      return false;
-    }
-    if (!isValidEmail(form.email)) {
-      setError('Please enter a valid email address');
-      return false;
-    }
-    if (!isStrongPassword(form.password)) {
-      setError('Password must be at least 6 characters');
-      return false;
-    }
-    if (!form.agree) {
-      setError('You must agree to the terms and conditions');
-      return false;
-    }
-    return true;
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!validateForm()) return;
-
+  
     setLoading(true);
     setError('');
 

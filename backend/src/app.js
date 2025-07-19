@@ -13,6 +13,6 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/tasks', taskRoutes);
-app.use('/api/auth', authRoutes);
+  app.use('/api/auth', authRoutes);
 
 module.exports = app;

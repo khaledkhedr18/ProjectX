@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import { loginWithEmail } from "./login.api";
 import "./login.css";
 
@@ -17,7 +16,8 @@ const Login = () => {
     try {
       const res = await loginWithEmail(email, password);
       console.log("Logged in:", res.data);
-      // TODO: store token or redirect user
+      // TODO: store token and redirect user to the dashboard
+      
     } catch (err) {
       setError(err?.response?.data?.message || "Login failed");
     } finally {

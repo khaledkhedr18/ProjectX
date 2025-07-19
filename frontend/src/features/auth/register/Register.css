@@ -1,13 +1,6 @@
 @import "tailwindcss";
 
-/* Custom form validation styles */
-input:invalid:not(:focus):not(:placeholder-shown) {
-  @apply border-red-500;
-}
 
-input:invalid:not(:focus):not(:placeholder-shown) + .error-message {
-  @apply block text-red-500 text-xs mt-1;
-}
 
 /* Loading spinner for the button */
 @keyframes spin {
@@ -28,7 +21,3 @@ input:invalid:not(:focus):not(:placeholder-shown) + .error-message {
   transition: all 0.2s ease-in-out;
 }
 
-/* Focus styles */
-.focus-visible:focus {
-  @apply ring-2 ring-green-500 ring-opacity-50 outline-none;
-}

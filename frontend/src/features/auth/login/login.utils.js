@@ -1,3 +1,5 @@
+//TODO: Make all the validation functions
+
 export const isValidEmail = (email) => {
   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return regex.test(email);
